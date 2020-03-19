@@ -14,7 +14,7 @@ function Contact() {
             <div className="form-group">
               <label>Name</label>
               <input
-                type="email"
+                type="text"
                 className="form-control"
                 id="exampleFormControlInput1"
                 placeholder="Name"
