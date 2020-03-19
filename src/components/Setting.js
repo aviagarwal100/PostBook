@@ -42,7 +42,7 @@ class Setting extends Component {
           }
         })
         .catch(error => {
-          console.log(error);
+          console.log("Error in uploading" + error);
         });
     } else {
       this.setState({ error: "Field should not be remain empty" });
