@@ -66,7 +66,7 @@ class Sign extends Component {
         phone: this.state.phone
       };
       event.preventDefault();
-      fetch("https://git.heroku.com/protected-everglades-33510.git/api/auth/register", {
+      fetch("https://protected-everglades-33510.herokuapp.com/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
