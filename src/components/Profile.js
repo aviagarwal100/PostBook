@@ -22,7 +22,6 @@ class Profile extends Component {
     formData.append("user", user);
     formData.append("title", this.state.title);
     const config = {
-      mode:"no-cors",
       headers: {
         "content-type": "multipart/form-data"
       }

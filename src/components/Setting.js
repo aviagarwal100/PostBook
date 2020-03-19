@@ -25,7 +25,6 @@ class Setting extends Component {
     formData.append("profilepic", this.state.filename);
     formData.append("user", user);
     const config = {
-      mode:"no-cors",
       headers: {
         "content-type": "multipart/form-data"
       }
@@ -67,7 +66,6 @@ class Setting extends Component {
     };
     fetch("https://protected-everglades-33510.herokuapp.com/api/auth/delete", {
       method: "POST",
-      mode:"no-cors",
       headers: {
         "Content-type": "application/x-www-form-urlencoded"
       },
