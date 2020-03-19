@@ -68,10 +68,9 @@ class Sign extends Component {
       event.preventDefault();
       fetch("https://protected-everglades-33510.herokuapp.com/api/auth/register", {
         method: "POST",
-        mode:"no-cors",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          Accept: 'application/json',
+          "Accept": 'application/json',
         },
         body: this.toFormUrlEncoded(object)
       }).then(response => response.json()).then(data => {
