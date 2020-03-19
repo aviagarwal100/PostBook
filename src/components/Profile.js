@@ -23,18 +23,19 @@ class Profile extends Component {
     formData.append("title", this.state.title);
     const config = {
       headers: {
-        "content-type": "multipart/form-data"
+        "content-type": "multipart/form-data",
+        mode: "no-cors"
       }
     };
     if (this.state.filename !== null && this.state.title !== null) {
       axios
         .post("https://protected-everglades-33510.herokuapp.com/api/photo/upload", formData, config)
         .then(response => {
-          if (response.message === "error") {
-            alert("Problem in loading image...");
-          } else {
+          //if (response.message === "error") {
+           // alert("Problem in loading image...");
+          //} else {
             alert("The file is successfully uploaded");
-          }
+          //}
         })
         .catch(error => {
           console.log(error);

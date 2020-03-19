@@ -26,7 +26,8 @@ class Setting extends Component {
     formData.append("user", user);
     const config = {
       headers: {
-        "content-type": "multipart/form-data"
+        "content-type": "multipart/form-data",
+        
       }
     };
     if (this.state.filename !== null) {
