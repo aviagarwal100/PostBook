@@ -70,10 +70,11 @@ class Sign extends Component {
         method: "POST",
         mode:"no-cors",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/x-www-form-urlencoded",
+          Accept: 'application/json',
         },
         body: this.toFormUrlEncoded(object)
-      }).then(data => {
+      }).then(response => response.json()).then(data => {
           if (data.error !== "success") {
             this.setState({ isLoaded: true });
             this.setState({ error: data.error });
