@@ -68,14 +68,12 @@ class Sign extends Component {
       event.preventDefault();
       fetch("https://protected-everglades-33510.herokuapp.com/api/auth/register", {
         method: "POST",
-        mode:'no-cors',
+        mode:"no-cors",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         body: this.toFormUrlEncoded(object)
-      })
-        .then(response => response.json())
-        .then(data => {
+      }).then(response => response.json()).then(data => {
           if (data.error !== "success") {
             this.setState({ isLoaded: true });
             this.setState({ error: data.error });
@@ -85,8 +83,7 @@ class Sign extends Component {
             localStorage.setItem("user", JSON.stringify(data.user));
             this.props.handleSuccessAuth(data);
           }
-        })
-        .catch(error => {
+        }).catch(error => {
           console.error("Error:", error);
         });
     }
