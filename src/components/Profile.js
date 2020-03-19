@@ -22,9 +22,10 @@ class Profile extends Component {
     formData.append("user", user);
     formData.append("title", this.state.title);
     const config = {
+      mode: "no-cors",
       headers: {
-        "content-type": "multipart/form-data",
-        mode: "no-cors"
+        "content-type": "multipart/form-data"
+        
       }
     };
     if (this.state.filename !== null && this.state.title !== null) {
