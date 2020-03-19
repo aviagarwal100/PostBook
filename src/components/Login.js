@@ -33,7 +33,16 @@ class Login extends Component {
     ) {
       this.setState({ isLoaded: true });
       this.setState({ error: "Please input email and password properly" });
-    } else {
+    }
+    else if (
+      validator.isEmpty(this.state.password) ||
+      validator.isEmpty(this.state.email)
+    ) {
+      this.setState({ isLoaded: true });
+      this.setState({ error: "Fields should not be left empty" }); 
+    }   
+    
+    else {
       const object = {
         email: this.state.email,
         password: this.state.password
