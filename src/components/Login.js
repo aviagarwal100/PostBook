@@ -40,6 +40,7 @@ class Login extends Component {
       };
       fetch("https://protected-everglades-33510.herokuapp.com/api/auth/login", {
         method: "POST",
+        mode:"no-cors",
         headers: {
           "Content-type": "application/x-www-form-urlencoded"
         },
