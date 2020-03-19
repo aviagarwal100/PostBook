@@ -31,7 +31,7 @@ class Setting extends Component {
     };
     if (this.state.filename !== null) {
       axios
-        .post("http://localhost:5000/api/auth/upload", formData, config)
+        .post("https://protected-everglades-33510.herokuapp.com/api/auth/upload", formData, config)
         .then(response => {
           if (response.message === "error") {
             alert("Problem in loading image...");
@@ -64,7 +64,7 @@ class Setting extends Component {
         )
         .join("&");
     };
-    fetch("http://localhost:5000/api/auth/delete", {
+    fetch("https://protected-everglades-33510.herokuapp.com/api/auth/delete", {
       method: "POST",
       headers: {
         "Content-type": "application/x-www-form-urlencoded"

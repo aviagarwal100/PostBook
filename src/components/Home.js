@@ -30,7 +30,7 @@ class Home extends Component {
       .join("&");
   }
   componentDidMount() {
-    fetch("http://localhost:5000/api/photo/post", {
+    fetch("https://protected-everglades-33510.herokuapp.com/api/photo/post", {
       method: "POST",
       headers: {
         "Content-type": "application/x-www-form-urlencoded"

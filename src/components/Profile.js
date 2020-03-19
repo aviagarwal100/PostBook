@@ -28,7 +28,7 @@ class Profile extends Component {
     };
     if (this.state.filename !== null && this.state.title !== null) {
       axios
-        .post("http://localhost:5000/api/photo/upload", formData, config)
+        .post("https://protected-everglades-33510.herokuapp.com/api/photo/upload", formData, config)
         .then(response => {
           if (response.message === "error") {
             alert("Problem in loading image...");

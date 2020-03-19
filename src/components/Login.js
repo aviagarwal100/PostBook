@@ -38,7 +38,7 @@ class Login extends Component {
         email: this.state.email,
         password: this.state.password
       };
-      fetch("http://localhost:5000/api/auth/login", {
+      fetch("https://protected-everglades-33510.herokuapp.com/api/auth/login", {
         method: "POST",
         headers: {
           "Content-type": "application/x-www-form-urlencoded"
