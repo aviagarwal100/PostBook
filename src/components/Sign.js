@@ -73,7 +73,7 @@ class Sign extends Component {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         body: this.toFormUrlEncoded(object)
-      }).then(response => response.json()).then(data => {
+      }).then(data => {
           if (data.error !== "success") {
             this.setState({ isLoaded: true });
             this.setState({ error: data.error });
