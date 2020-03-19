@@ -69,8 +69,7 @@ class Sign extends Component {
       fetch("https://git.heroku.com/protected-everglades-33510.git/api/auth/register", {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Accept": 'application/json',
+          "Content-Type": "application/x-www-form-urlencoded"
         },
         body: this.toFormUrlEncoded(object)
       }).then(response => response.json()).then(data => {
