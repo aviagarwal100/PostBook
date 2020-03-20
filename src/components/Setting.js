@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import img from "../images/sunset-2021266_640.jpg";
-const axios = require("axios");
+//const axios = require("axios");
 
 class Setting extends Component {
   constructor(props) {
@@ -24,15 +24,17 @@ class Setting extends Component {
     const formData = new FormData();
     formData.append("profilepic", this.state.filename);
     formData.append("user", user);
-    const config = {
-      headers: {
+    //const config = {
+      //headers: {
+        //"content-type": "multipart/form-data",
+        
+      //}
+    //};
+    if (this.state.filename !== null) {
+      fetch("https://protected-everglades-33510.herokuapp.com/api/auth/upload", {method: "POST",headers: {
         "content-type": "multipart/form-data",
         
-      }
-    };
-    if (this.state.filename !== null) {
-      axios
-        .post("https://protected-everglades-33510.herokuapp.com/api/auth/upload", formData, config)
+      },body:formData})
         .then(response => {
           if (response.message === "error") {
             alert("Problem in loading image...");
