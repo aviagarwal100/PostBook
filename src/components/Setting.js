@@ -20,10 +20,11 @@ class Setting extends Component {
 
   handleProfile(event) {
     event.preventDefault();
-    const user = localStorage.getItem("user");
+    const user = JSON.parse(localStorage.getItem("user"))
     const formData = new FormData();
     formData.append("profilepic", this.state.filename);
-    formData.append("user", user);
+    formData.append("user", user.email);
+    
     //const config = {
       //headers: {
         //"content-type": "multipart/form-data",
@@ -31,16 +32,13 @@ class Setting extends Component {
       //}
     //};
     if (this.state.filename !== null) {
-      fetch("https://protected-everglades-33510.herokuapp.com/api/auth/upload", {method: "POST",headers: {
-        "content-type": "multipart/form-data",
-        
-      },body:formData})
+      fetch("https://protected-everglades-33510.herokuapp.com/api/auth/upload", {method: "POST",body:formData}).then((response) => response.json())
         .then(response => {
           if (response.message === "error") {
             alert("Problem in loading image...");
           } else {
             alert("The file is successfully uploaded");
-            localStorage.setItem("user", JSON.stringify(response.data.user));
+            localStorage.setItem("user", JSON.stringify(response.user));
             window.location.reload(false);
           }
         })

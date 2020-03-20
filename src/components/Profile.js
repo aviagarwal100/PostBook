@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-const axios = require("axios");
 
 class Profile extends Component {
   constructor(props) {
@@ -16,21 +15,13 @@ class Profile extends Component {
   }
   handleProfile(event) {
     event.preventDefault();
-    const user = localStorage.getItem("user");
+    const user = JSON.parse(localStorage.getItem("user"))
     const formData = new FormData();
     formData.append("profilepic", this.state.filename);
-    formData.append("user", user);
+    formData.append("user", user.email);
     formData.append("title", this.state.title);
-    const config = {
-      crossDomain: true,
-      headers: {
-        "content-type": "multipart/form-data"
-        
-      }
-    };
     if (this.state.filename !== null && this.state.title !== null) {
-      axios
-        .post("https://protected-everglades-33510.herokuapp.com/api/photo/upload", formData, config)
+      fetch("https://protected-everglades-33510.herokuapp.com/api/photo/upload",{method: "POST",body:formData})        
         .then(response => {
           //if (response.message === "error") {
            // alert("Problem in loading image...");
