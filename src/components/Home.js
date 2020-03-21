@@ -10,6 +10,7 @@ class Home extends Component {
     this.state = {
       error: "",
       data: {},
+      picture: [],
       original: [],
       error1: "",
       search: "",
@@ -41,9 +42,17 @@ class Home extends Component {
       .then(data => {
         if (data.error === "error") {
           this.setState({ error: "Please upload photos" });
+          console.log(data.original);
+          if (data.original !== undefined) {
+            this.setState({ original: data.original.reverse().slice(0, 9) });
+            this.setState({ originalSearch: data.original.reverse() });
+          } else {
+            this.setState({ error1: "No Post is avaliable" });
+          }
         } else if (data.error === "success") {
           this.setState({ data: data });
-          this.setState({ original: data.original.reverse().slice(0, 10) });
+          this.setState({ picture: data.picture });
+          this.setState({ original: data.original.reverse().slice(0, 9) });
           this.setState({ originalSearch: data.original.reverse() });
           if (this.state.original === undefined) {
             this.setState({ error1: "No Post is avaliable" });
@@ -108,7 +117,7 @@ class Home extends Component {
         </div>
         <div className="container">
           <div className=" mb-5 mx-4 row">
-            {this.state.data.picture !== undefined
+            {this.state.picture !== undefined
               ? this.state.original.map((value, index) => (
                   <div
                     key={index}
@@ -125,9 +134,9 @@ class Home extends Component {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{value.title}</h5>
-                      <h6 className="card-text text-muted cross">
-                        {this.state.data.picture[0] !== undefined &&
-                        value.name === this.state.data.picture[0].name
+                      <h6 className="card-text text-muted mb-0 cross">
+                        {this.state.picture.length !== 0 &&
+                        value.name === this.state.picture[0].name
                           ? "you"
                           : "@" + value.name}
                       </h6>
@@ -143,7 +152,7 @@ class Home extends Component {
                             "image.png"
                           );
                         }}
-                        className="fa fa-download down"
+                        className="fa fa-download mb-0 down"
                       ></Link>
                     </div>
                   </div>
@@ -161,13 +170,15 @@ class Home extends Component {
             id="formGroupExampleInput"
             placeholder="Search the post that you want..."
           />
-          <button
-            className="btn btn-outline-success inputsearch"
-            onClick={this.onSearch}
-            type="submit"
-          >
-            Search
-          </button>
+          <div className="inputsearch">
+            <button
+              className="btn btn-outline-success"
+              onClick={this.onSearch}
+              type="submit"
+            >
+              <div>Search</div>
+            </button>
+          </div>
         </div>
         <div className="container">
           <div className=" mb-5 mx-4 row">
@@ -189,8 +200,8 @@ class Home extends Component {
                   <div className="card-body">
                     <h5 className="card-title">{value.title}</h5>
                     <h6 className="card-text text-muted cross">
-                      {this.state.data.picture[0] !== undefined &&
-                      value.name === this.state.data.picture[0].name
+                      {this.state.picture[0] !== undefined &&
+                      value.name === this.state.picture[0].name
                         ? "you"
                         : "@" + value.name}
                     </h6>
@@ -228,8 +239,8 @@ class Home extends Component {
         </div>
         <div className="container">
           <div className=" mb-5 mx-4 row">
-            {this.state.data.picture !== undefined
-              ? this.state.data.picture.map((value, index) => (
+            {this.state.picture !== undefined
+              ? this.state.picture.map((value, index) => (
                   <div
                     key={index}
                     className="card slider1 col-sm-12 col-md-4 px-0 mb-3"
@@ -247,6 +258,7 @@ class Home extends Component {
                       <h5 className="card-title">{value.title}</h5>
 
                       <Link
+                        to="#"
                         onClick={() => {
                           download(
                             `data:${
@@ -260,7 +272,102 @@ class Home extends Component {
                         className="fa fa-download down"
                       ></Link>
 
-                      <Link to="#" className="fa fa-times cross"></Link>
+                      <Link
+                        to="#"
+                        onClick={() => {
+                          const object = {
+                            user: JSON.parse(localStorage.getItem("user")),
+                            id: value._id
+                          };
+                          fetch(
+                            "https://protected-everglades-33510.herokuapp.com/api/photo/userphoto",
+                            {
+                              method: "POST",
+                              headers: {
+                                "Content-type":
+                                  "application/x-www-form-urlencoded"
+                              },
+                              body: this.toFormUrlEncoded(object)
+                            }
+                          )
+                            .then(response => response.json())
+                            .then(data => {
+                              var orindex;
+                              const len = this.state.original.length;
+                              for (let i = 0; i < len; i++) {
+                                if (
+                                  this.state.picture[index]._id.toString() ===
+                                  this.state.original[i]._id.toString()
+                                ) {
+                                  orindex = i;
+                                  break;
+                                }
+                              }
+                              const len2 = this.state.originalSearch.length;
+                              let orindex2;
+                              for (let i = 0; i < len2; i++) {
+                                if (
+                                  this.state.picture[index]._id.toString() ===
+                                  this.state.originalSearch[i]._id.toString()
+                                ) {
+                                  orindex2 = i;
+                                  break;
+                                }
+                              }
+                              if (data.error === "error") {
+                                alert("Problem in deleting the photo");
+                              } else {
+                                if (this.state.picture.length === 1) {
+                                  this.setState({ picture: [] });
+                                  this.setState({
+                                    error: "Please upload photos"
+                                  });
+                                  if (this.state.original.length === 1) {
+                                    let array2 = this.state.originalSearch;
+                                    array2.splice(orindex2, 1);
+                                    this.setState({ original: [] });
+                                    this.setState({
+                                      error1: "No Post is avaliable"
+                                    });
+                                    this.setState({ originalSearch: array2 });
+                                    if (this.state.array.length !== 0) {
+                                      this.onSearch(this.state.search);
+                                    }
+                                  } else {
+                                    let array = this.state.original;
+                                    array.splice(orindex, 1);
+                                    let array2 = this.state.originalSearch;
+                                    array2.splice(orindex2, 1);
+                                    this.state.original.slice(orindex, 1);
+                                    this.setState({ original: array });
+                                    this.setState({ originalSearch: array2 });
+                                    if (this.state.array.length !== 0) {
+                                      this.onSearch(this.state.search);
+                                    }
+                                  }
+                                } else {
+                                  let array = this.state.original;
+                                  array.splice(orindex, 1);
+                                  let array2 = this.state.originalSearch;
+                                  array2.splice(orindex2, 1);
+                                  this.state.picture.splice(index, 1);
+                                  this.setState({
+                                    picture: this.state.picture
+                                  });
+                                  this.setState({ original: array });
+                                  this.setState({ originalSearch: array2 });
+                                  if (this.state.array.length !== 0) {
+                                    this.onSearch(this.state.search);
+                                  }
+                                }
+                              }
+                            })
+                            .catch(error => {
+                              console.error("Error:", error);
+                            });
+                        }}
+                        className="fa fa-times cross"
+                      ></Link>
                     </div>
                   </div>
                 ))
