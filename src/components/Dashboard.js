@@ -5,6 +5,7 @@ import About from "./About";
 import Contact from "./Contact";
 import Setting from "./Setting";
 import Profile from "./Profile";
+import Page404 from "./Page404";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -101,6 +102,9 @@ class Dashboard extends Component {
           </Route>
           <Route path="/profile">
             <Profile />
+          </Route>
+          <Route>
+            <Page404 />
           </Route>
         </Switch>
       </Router>

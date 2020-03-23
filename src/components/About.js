@@ -9,7 +9,7 @@ class About extends Component {
           <img className="card-img-top" src={image} alt="about" />
           <div className="card-body">
             <p className="card-text">
-              We are in the business of providing the free pictures posted by
+              We are in the business of providing free pictures posted by
               world wide users.Which help us to explore the world.
             </p>
           </div>

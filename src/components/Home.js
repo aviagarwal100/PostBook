@@ -3,6 +3,7 @@ import Footer2 from "../reusable components/Footer2";
 import img from "../images/camera-581126_640.jpg";
 import { Link } from "react-router-dom";
 import download from "downloadjs";
+import Loader from "./Loader";
 
 class Home extends Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class Home extends Component {
       search: "",
       originalSearch: [],
       array: [],
-      error2: ""
+      error2: "",
+      isLoaded: true
     };
     this.onChange = this.onChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -31,6 +33,7 @@ class Home extends Component {
       .join("&");
   }
   componentDidMount() {
+    this.setState({ isLoaded: false });
     fetch("https://protected-everglades-33510.herokuapp.com/api/photo/post", {
       method: "POST",
       headers: {
@@ -40,6 +43,7 @@ class Home extends Component {
     })
       .then(response => response.json())
       .then(data => {
+        this.setState({ isLoaded: true });
         if (data.error === "error") {
           this.setState({ error: "Please upload photos" });
           console.log(data.original);
@@ -113,7 +117,7 @@ class Home extends Component {
         </div>
         <div className="mb-5 text-center">
           <h1>Recent Post</h1>
-          <h5 className="mt-5">{this.state.error1}</h5>
+          <h5 className="mt-5 spinner container">{this.state.isLoaded ? this.state.error1: <Loader />}</h5>          
         </div>
         <div className="container">
           <div className=" mb-5 mx-4 row">
@@ -235,7 +239,7 @@ class Home extends Component {
         </div>
         <div className="mb-5 text-center">
           <h1>Your Post</h1>
-          <h5 className="mt-5">{this.state.error}</h5>
+          <h5 className="mt-5 spinner container">{this.state.isLoaded ? this.state.error : <Loader />}</h5>          
         </div>
         <div className="container">
           <div className=" mb-5 mx-4 row">
