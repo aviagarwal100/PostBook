@@ -70,7 +70,7 @@ class Home extends Component {
 
   
   onSearch(e) {
-    var info=document.getElementById("search").value;
+    var info=document.getElementById("searchdata").value;
     let temp = [];
     const len = this.state.originalSearch.length;
     for (let i = 0; i < len; i++) {
@@ -169,7 +169,7 @@ class Home extends Component {
           <input
             type="text"
             className="form-control input"
-            id="search"
+            id="searchdata"
             placeholder="Search the post that you want..."
           />
           <div className="inputsearch">
