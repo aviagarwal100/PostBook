@@ -68,16 +68,15 @@ class Home extends Component {
       });
   }
 
-  onChange(e) {
-    this.setState({ search: e.target.value });
-  }
+  
   onSearch(e) {
+    var info=document.getElementById("search").value;
     let temp = [];
     const len = this.state.originalSearch.length;
     for (let i = 0; i < len; i++) {
       if (
         this.state.originalSearch[i].title.toLowerCase() ===
-        this.state.search.toLowerCase()
+        info.toLowerCase()
       ) {
         temp.unshift(this.state.originalSearch[i]);
       }
@@ -170,8 +169,7 @@ class Home extends Component {
           <input
             type="text"
             className="form-control input"
-            onChange={this.onChange}
-            id="formGroupExampleInput"
+            id="search"
             placeholder="Search the post that you want..."
           />
           <div className="inputsearch">
