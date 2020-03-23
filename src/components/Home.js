@@ -19,8 +19,7 @@ class Home extends Component {
       array: [],
       error2: "",
       isLoaded: true
-    };
-    this.onChange = this.onChange.bind(this);
+    };    
     this.onSearch = this.onSearch.bind(this);
   }
 
