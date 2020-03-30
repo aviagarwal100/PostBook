@@ -19,7 +19,7 @@ class Home extends Component {
       array: [],
       error2: "",
       isLoaded: true
-    };    
+    };
     this.onSearch = this.onSearch.bind(this);
   }
 
@@ -67,15 +67,13 @@ class Home extends Component {
       });
   }
 
-  
   onSearch(e) {
-    var info=document.getElementById("searchdata").value;
+    var info = document.getElementById("searchdata").value;
     let temp = [];
     const len = this.state.originalSearch.length;
     for (let i = 0; i < len; i++) {
       if (
-        this.state.originalSearch[i].title.toLowerCase() ===
-        info.toLowerCase()
+        this.state.originalSearch[i].title.toLowerCase() === info.toLowerCase()
       ) {
         temp.unshift(this.state.originalSearch[i]);
       }
@@ -115,7 +113,9 @@ class Home extends Component {
         </div>
         <div className="mb-5 text-center">
           <h1>Recent Post</h1>
-          <h5 className="mt-5 spinner container">{this.state.isLoaded ? this.state.error1: <Loader />}</h5>          
+          <h5 className="mt-5 spinner container">
+            {this.state.isLoaded ? this.state.error1 : <Loader />}
+          </h5>
         </div>
         <div className="container">
           <div className=" mb-5 mx-4 row">
@@ -236,7 +236,9 @@ class Home extends Component {
         </div>
         <div className="mb-5 text-center">
           <h1>Your Post</h1>
-          <h5 className="mt-5 spinner container">{this.state.isLoaded ? this.state.error : <Loader />}</h5>          
+          <h5 className="mt-5 spinner container">
+            {this.state.isLoaded ? this.state.error : <Loader />}
+          </h5>
         </div>
         <div className="container">
           <div className=" mb-5 mx-4 row">
@@ -293,17 +295,6 @@ class Home extends Component {
                           )
                             .then(response => response.json())
                             .then(data => {
-                              var orindex;
-                              const len = this.state.original.length;
-                              for (let i = 0; i < len; i++) {
-                                if (
-                                  this.state.picture[index]._id.toString() ===
-                                  this.state.original[i]._id.toString()
-                                ) {
-                                  orindex = i;
-                                  break;
-                                }
-                              }
                               const len2 = this.state.originalSearch.length;
                               let orindex2;
                               for (let i = 0; i < len2; i++) {
@@ -335,27 +326,26 @@ class Home extends Component {
                                       this.onSearch(this.state.search);
                                     }
                                   } else {
-                                    let array = this.state.original;
-                                    array.splice(orindex, 1);
                                     let array2 = this.state.originalSearch;
                                     array2.splice(orindex2, 1);
-                                    this.state.original.slice(orindex, 1);
-                                    this.setState({ original: array });
                                     this.setState({ originalSearch: array2 });
+                                    this.setState({
+                                      original: array2.splice(0, 9)
+                                    });
                                     if (this.state.array.length !== 0) {
                                       this.onSearch(this.state.search);
                                     }
                                   }
                                 } else {
-                                  let array = this.state.original;
-                                  array.splice(orindex, 1);
                                   let array2 = this.state.originalSearch;
                                   array2.splice(orindex2, 1);
                                   this.state.picture.splice(index, 1);
                                   this.setState({
                                     picture: this.state.picture
                                   });
-                                  this.setState({ original: array });
+                                  this.setState({
+                                    original: array2.splice(0, 9)
+                                  });
                                   this.setState({ originalSearch: array2 });
                                   if (this.state.array.length !== 0) {
                                     this.onSearch(this.state.search);
