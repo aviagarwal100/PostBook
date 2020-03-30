@@ -15,6 +15,7 @@ function Contact() {
               <label>Name</label>
               <input
                 type="text"
+                name="name"
                 className="form-control"
                 id="exampleFormControlInput1"
                 placeholder="Name"
@@ -24,6 +25,7 @@ function Contact() {
               <label>Email address</label>
               <input
                 type="email"
+                name="_replyto"
                 className="form-control"
                 id="exampleFormControlInput1"
                 placeholder="@email"
@@ -35,11 +37,12 @@ function Contact() {
               <textarea
                 className="form-control"
                 id="exampleFormControlTextarea1"
+                name="message"
                 rows="2"
               ></textarea>
             </div>
             <div className="text-center">
-              <button className="btn btn-success text-center">Submit</button>
+              <button className="btn btn-success text-center" type="submit">Submit</button>
             </div>
           </form>
         </div>
