@@ -330,7 +330,7 @@ class Home extends Component {
                                     array2.splice(orindex2, 1);
                                     this.setState({ originalSearch: array2 });
                                     this.setState({
-                                      original: array2.splice(0, 9)
+                                      original: array2.reverse().splice(0, 9)
                                     });
                                     if (this.state.array.length !== 0) {
                                       this.onSearch(this.state.search);
@@ -344,7 +344,7 @@ class Home extends Component {
                                     picture: this.state.picture
                                   });
                                   this.setState({
-                                    original: array2.splice(0, 9)
+                                    original: array2.reverse().splice(0, 9)
                                   });
                                   this.setState({ originalSearch: array2 });
                                   if (this.state.array.length !== 0) {
